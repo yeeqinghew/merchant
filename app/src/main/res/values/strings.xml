@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">merchant</string>
     <string name="already_have_account_sign_up">Already have account? <b>Sign Up</b></string>
+    <string name="title_activity_homepage">Home Page</string>
+    <string name="title_quests">Quests</string>
+    <string name="title_events">Events</string>
+    <string name="title_projects">Projects</string>
+    <string name="title_rewards">Rewards</string>
 </resources>

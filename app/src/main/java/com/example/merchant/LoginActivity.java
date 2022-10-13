@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         // get current user
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null) {
-            startActivity(new Intent(this, ProfileActivity.class));
+            startActivity(new Intent(this, HomepageActivity.class));
             finish();
         }
     }
@@ -109,8 +109,8 @@ public class LoginActivity extends AppCompatActivity {
                 String email = user.getEmail();
                 Toast.makeText(LoginActivity.this, "Logged In\n" + email, Toast.LENGTH_SHORT).show();
 
-                // open profile activity
-                startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                // open homepage activity
+                startActivity(new Intent(LoginActivity.this, HomepageActivity.class));
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {

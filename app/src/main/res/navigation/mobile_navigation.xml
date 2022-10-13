@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_quests">
+
+    <fragment
+        android:id="@+id/navigation_quests"
+        android:name="com.example.merchant.ui.quests.QuestsFragment"
+        android:label="@string/title_quests"
+        tools:layout="@layout/fragment_quests" />
+
+    <fragment
+        android:id="@+id/navigation_events"
+        android:name="com.example.merchant.ui.events.EventsFragment"
+        android:label="@string/title_events"
+        tools:layout="@layout/fragment_events" />
+
+    <fragment
+        android:id="@+id/navigation_projects"
+        android:name="com.example.merchant.ui.projects.ProjectsFragment"
+        android:label="@string/title_projects"
+        tools:layout="@layout/fragment_projects" />
+
+    <fragment
+        android:id="@+id/navigation_rewards"
+        android:name="com.example.merchant.ui.rewards.RewardsFragment"
+        android:label="@string/title_rewards"
+        tools:layout="@layout/fragment_rewards" />
+</navigation>
