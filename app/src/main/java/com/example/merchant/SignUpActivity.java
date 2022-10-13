@@ -125,8 +125,8 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Toast.makeText(SignUpActivity.this, "Account created\n" + email, Toast.LENGTH_SHORT).show();
-                                // open profile activity
-                                startActivity(new Intent(SignUpActivity.this, ProfileActivity.class));
+                                // open homepage activity
+                                startActivity(new Intent(SignUpActivity.this, HomepageActivity.class));
                                 finish();
                             }
                         });
