@@ -4,27 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp"
-    android:gravity="center"
     tools:context=".ProfileActivity">
 
-<!--    Show info of logged in user, and a logout button-->
+    <!--    Show info of logged in user, and a logout button-->
 
     <TextView
         android:id="@+id/captionTv"
+        style="@style/TextAppearance.MaterialComponents.Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="You're logged in as"
-        android:textAlignment="center"
-        style="@style/TextAppearance.MaterialComponents.Caption"/>
+        android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/emailTv"
+        android:id="@+id/companyNameTv"
+        style="@style/TextAppearance.MaterialComponents.Headline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:text="Company Name" />
+
+    <TextView
+        android:id="@+id/contactNoTv"
         style="@style/TextAppearance.MaterialComponents.Headline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Contact No" />
+
+    <TextView
+        android:id="@+id/emailTv"
+        style="@style/TextAppearance.MaterialComponents.Headline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text="Email" />
 
     <Button

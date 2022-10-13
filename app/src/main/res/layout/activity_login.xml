@@ -9,36 +9,35 @@
 
     <TextView
         android:id="@+id/titleLabelTv"
+        style="@style/TextAppearance.MaterialComponents.Headline4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
-        android:textAlignment="center"
-        style="@style/TextAppearance.MaterialComponents.Headline4"/>
+        android:textAlignment="center" />
 
     <TextView
         android:id="@+id/descriptionLabelTv"
+        style="@style/TextAppearance.MaterialComponents.Caption"
         android:layout_width="match_parent"
-        android:layout_below="@id/titleLabelTv"
         android:layout_height="wrap_content"
+        android:layout_below="@id/titleLabelTv"
         android:text="Login to your existing account"
-        android:textAlignment="center"
-        style="@style/TextAppearance.MaterialComponents.Caption"/>
+        android:textAlignment="center" />
 
     <!--Email-->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailTil"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@id/passwordTil"
-        android:layout_marginBottom="10dp"
-        android:layout_height="wrap_content">
+        android:layout_marginBottom="10dp">
 
         <EditText
             android:id="@+id/emailEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:inputType="textEmailAddress"
-            />
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -46,35 +45,34 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordTil"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        app:passwordToggleEnabled="true"
-        android:layout_height="wrap_content">
+        app:passwordToggleEnabled="true">
 
         <EditText
             android:id="@+id/passwordEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:inputType="textEmailAddress"
-            />
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
-<!--    Button -->
+    <!--    Button -->
     <Button
         android:id="@+id/loginBtn"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/passwordTil"
-        android:text="Login"/>
+        android:layout_marginTop="10dp"
+        android:text="Login" />
 
     <TextView
         android:id="@+id/haveAccountTv"
+        style="@style/TextAppearance.MaterialComponents.Caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/already_have_account_sign_up"
         android:layout_alignParentBottom="true"
-        android:textAlignment="center"
-        style="@style/TextAppearance.MaterialComponents.Caption"/>
+        android:text="@string/already_have_account_sign_up"
+        android:textAlignment="center" />
 
 </RelativeLayout>

@@ -104,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(AuthResult authResult) {
                 // login success
+                progressDialog.dismiss();
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 String email = user.getEmail();
                 Toast.makeText(LoginActivity.this, "Logged In\n" + email, Toast.LENGTH_SHORT).show();
@@ -117,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 // login failure
                 progressDialog.dismiss();
-                Toast.makeText(LoginActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
