@@ -22,8 +22,8 @@ private FragmentEventsBinding binding;
     binding = FragmentEventsBinding.inflate(inflater, container, false);
     View root = binding.getRoot();
 
-        final TextView textView = binding.textEvents;
-        eventsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textEvents;
+//        eventsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
