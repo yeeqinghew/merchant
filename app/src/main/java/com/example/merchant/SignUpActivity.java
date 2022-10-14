@@ -45,7 +45,6 @@ public class SignUpActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setTitle("Sign Up");
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // init firebase auth
         firebaseAuth = FirebaseAuth.getInstance();

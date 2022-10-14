@@ -38,6 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
         // configure action bar, title
         actionBar = getSupportActionBar();
         actionBar.setTitle("Profile");
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // init firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
@@ -52,6 +53,12 @@ public class ProfileActivity extends AppCompatActivity {
                 checkUser();
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed(); // go to previous activity when back button of actionbar is clicked
+        return super.onSupportNavigateUp();
     }
 
     private void checkUser() {
