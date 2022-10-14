@@ -58,6 +58,9 @@ public class RewardsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         rewardAdapter.startListening();
+        // Remove crash on press back
+        rewardsList.getRecycledViewPool().clear();
+        rewardAdapter.notifyDataSetChanged();
     }
 
     @Override
