@@ -1,6 +1,7 @@
 package com.example.merchant;
 
 public class CreateEvent {
+    public String eventId;
     public String certificates;
     public String challengetitle;
     public String count;
@@ -24,12 +25,13 @@ public class CreateEvent {
 
     }
 
-    public CreateEvent(String certificates, String challengetitle, String count,
+    public CreateEvent(String eventId, String certificates, String challengetitle, String count,
                        String eventdate, String eventdescription, String eventendtime,
                        String eventlocation, String eventpoints, String eventstarttime,
                        String eventtimeend, String eventtimestart, String eventtitle,
                        String gmapslocation, String goalpoints, String goaltitle,
                        String image, String maxparticipants, String qrdata) {
+        this.eventId = eventId;
         this.certificates = certificates;
         this.challengetitle = challengetitle;
         this.count = count;
@@ -48,5 +50,81 @@ public class CreateEvent {
         this.image = image;
         this.maxparticipants = maxparticipants;
         this.qrdata = qrdata;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public String getCertificates() {
+        return certificates;
+    }
+
+    public String getChallengetitle() {
+        return challengetitle;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public String getEventdate() {
+        return eventdate;
+    }
+
+    public String getEventdescription() {
+        return eventdescription;
+    }
+
+    public String getEventendtime() {
+        return eventendtime;
+    }
+
+    public String getEventlocation() {
+        return eventlocation;
+    }
+
+    public String getEventpoints() {
+        return eventpoints;
+    }
+
+    public String getEventstarttime() {
+        return eventstarttime;
+    }
+
+    public String getEventtimeend() {
+        return eventtimeend;
+    }
+
+    public String getEventtimestart() {
+        return eventtimestart;
+    }
+
+    public String getEventtitle() {
+        return eventtitle;
+    }
+
+    public String getGmapslocation() {
+        return gmapslocation;
+    }
+
+    public String getGoalpoints() {
+        return goalpoints;
+    }
+
+    public String getGoaltitle() {
+        return goaltitle;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getMaxparticipants() {
+        return maxparticipants;
+    }
+
+    public String getQrdata() {
+        return qrdata;
     }
 }

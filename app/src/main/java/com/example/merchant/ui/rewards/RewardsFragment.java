@@ -19,8 +19,8 @@ private FragmentRewardsBinding binding;
         RewardsViewModel rewardsViewModel =
                 new ViewModelProvider(this).get(RewardsViewModel.class);
 
-    binding = FragmentRewardsBinding.inflate(inflater, container, false);
-    View root = binding.getRoot();
+        binding = FragmentRewardsBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
         final TextView textView = binding.textRewards;
         rewardsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
