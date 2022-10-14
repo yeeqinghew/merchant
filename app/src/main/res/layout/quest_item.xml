@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="6dp"
+    android:elevation="6dp"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/questTitleTv"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/questPoints"
+            android:text="Quest Title"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/questGoalTitleTv"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/questPoints"
+            android:layout_below="@+id/questTitleTv"
+            android:text="Quest Goal Title"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/questPoints"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="58dp"
+            android:layout_height="68dp"
+            android:layout_alignParentRight="true"
+            android:text="10"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/questDescriptionTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/questPoints"
+            android:layout_below="@+id/questGoalTitleTv"
+            android:text="Quest Description"
+            />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
