@@ -65,6 +65,7 @@ public class HomepageActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.profile:
+                startActivity(new Intent(this, ProfileActivity.class));
                 return true;
 
             case R.id.logout:

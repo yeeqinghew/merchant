@@ -1,12 +1,15 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/profile"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_account_circle_48px"
+        app:showAsAction="always"
         android:title="@string/title_profile"/>
 
     <item
         android:id="@+id/logout"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_logout_48px"
+        app:showAsAction="always"
         android:title="@string/title_logout"/>
 
 </menu>

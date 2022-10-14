@@ -55,7 +55,6 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed(); // go to previous activity when back button of actionbar is clicked
