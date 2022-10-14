@@ -100,7 +100,6 @@ public class QuestsFragment extends Fragment {
         } else {
             // user logged in, get info
             String uid = user.getUid();
-            String email = user.getEmail();
             // retrieve merchant's info by merchant's UID
             reference = firebaseDatabase.getReference("Merchants").child(uid);
             reference.addValueEventListener(new ValueEventListener() {
