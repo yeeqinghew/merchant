@@ -125,6 +125,9 @@ public class QuestsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         questAdapter.startListening();
+        // Remove crash on press back
+        questsList.getRecycledViewPool().clear();
+        questAdapter.notifyDataSetChanged();
     }
 
     @Override
