@@ -3,7 +3,7 @@ package com.example.merchant;
 public class Reward {
     public String description;
     public String expirydate;
-    public String mImaegeUrl;
+    public String mImageUrl;
     public String point;
     public String qrUrl;
     public String title;
@@ -13,10 +13,10 @@ public class Reward {
 
     }
 
-    public Reward(String description, String expirydate, String mImaegeUrl, String point, String qrUrl, String title, String tou) {
+    public Reward(String description, String expirydate, String mImageUrl, String point, String qrUrl, String title, String tou) {
         this.description = description;
         this.expirydate = expirydate;
-        this.mImaegeUrl = mImaegeUrl;
+        this.mImageUrl = mImageUrl;
         this.point = point;
         this.qrUrl = qrUrl;
         this.title = title;
@@ -31,8 +31,8 @@ public class Reward {
         return expirydate;
     }
 
-    public String getmImaegeUrl() {
-        return mImaegeUrl;
+    public String getmImageUrl() {
+        return mImageUrl;
     }
 
     public String getPoint() {

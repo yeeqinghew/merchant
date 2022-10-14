@@ -22,7 +22,7 @@ public class RewardAdapter extends FirebaseRecyclerAdapter<Reward, RewardAdapter
 
     @Override
     public void onBindViewHolder(@NonNull RewardAdapter.RewardViewHolder holder, int position, @NonNull Reward reward) {
-            Glide.with(holder.rewardImage.getContext()).load(reward.getmImaegeUrl()).into(holder.rewardImage);
+            Glide.with(holder.rewardImage.getContext()).load(reward.getmImageUrl()).into(holder.rewardImage);
             holder.rewardTitle.setText(reward.getTitle());
             holder.rewardPoints.setText(reward.getPoint());
     }
