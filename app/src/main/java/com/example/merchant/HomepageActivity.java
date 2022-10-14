@@ -70,6 +70,7 @@ public class HomepageActivity extends AppCompatActivity {
             case R.id.logout:
                 firebaseAuth.signOut();
                 checkUser();
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

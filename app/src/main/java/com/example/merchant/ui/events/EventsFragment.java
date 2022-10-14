@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,7 +31,6 @@ import java.util.ArrayList;
 public class EventsFragment extends Fragment {
 
     private FragmentEventsBinding binding;
-    private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference reference;
 
@@ -38,6 +38,7 @@ public class EventsFragment extends Fragment {
     private View EventsView;
     private RecyclerView eventsList;
     EventAdapter eventAdapter;
+
 
     public EventsFragment() {}
 
@@ -48,7 +49,6 @@ public class EventsFragment extends Fragment {
 
         eventsList = (RecyclerView) root.findViewById(R.id.eventList);
         eventsList.setLayoutManager((new LinearLayoutManager(getContext())));
-        firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         getAllEvents();
@@ -60,7 +60,6 @@ public class EventsFragment extends Fragment {
         reference = firebaseDatabase.getReference().child("CreateEvent");
         FirebaseRecyclerOptions<CreateEvent> options = new FirebaseRecyclerOptions.Builder<CreateEvent>().setQuery(reference, CreateEvent.class).build();
         eventAdapter = new EventAdapter(options);
-        Log.d("eventFragment", String.valueOf(eventsList));
         eventsList.setAdapter(eventAdapter);
     }
 
@@ -68,6 +67,9 @@ public class EventsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         eventAdapter.startListening();
+        // Remove crash on press back
+        eventsList.getRecycledViewPool().clear();
+        eventAdapter.notifyDataSetChanged();
     }
 
     @Override
