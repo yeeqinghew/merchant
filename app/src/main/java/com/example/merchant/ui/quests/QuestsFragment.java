@@ -38,8 +38,8 @@ public class QuestsFragment extends Fragment {
         com.example.merchant.ui.quests.QuestsViewModel questsViewModel =
                 new ViewModelProvider(this).get(com.example.merchant.ui.quests.QuestsViewModel.class);
 
-    binding = FragmentQuestsBinding.inflate(inflater, container, false);
-    View root = binding.getRoot();
+        binding = FragmentQuestsBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
 //        final TextView textView = binding.textQuests;
 //        questsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
@@ -74,7 +74,6 @@ public class QuestsFragment extends Fragment {
         } else {
             // user logged in, get info
             String uid = user.getUid();
-            String email = user.getEmail();
             // retrieve merchant's info by merchant's UID
             reference = firebaseDatabase.getReference("Merchants").child(uid);
             reference.addValueEventListener(new ValueEventListener() {
