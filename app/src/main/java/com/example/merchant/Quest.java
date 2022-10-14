@@ -4,17 +4,15 @@ public class Quest {
     public String description;
     public String goalTitle;
     public String points;
-    public String questId;
     public String questTitle;
 
     public Quest() {
     }
 
-    public Quest(String description, String goalTitle, String points, String questId, String questTitle) {
+    public Quest(String description, String goalTitle, String points, String questTitle) {
         this.description = description;
         this.goalTitle = goalTitle;
         this.points = points;
-        this.questId = questId;
         this.questTitle = questTitle;
     }
 
@@ -40,14 +38,6 @@ public class Quest {
 
     public void setPoints(String points) {
         this.points = points;
-    }
-
-    public String getQuestId() {
-        return questId;
-    }
-
-    public void setQuestId(String questId) {
-        this.questId = questId;
     }
 
     public String getQuestTitle() {
