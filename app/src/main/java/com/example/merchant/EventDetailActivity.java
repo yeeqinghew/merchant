@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.merchant.databinding.ActivityActivitiesBinding;
 import com.example.merchant.databinding.ActivityEventDetailBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,10 +23,10 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private ActivityEventDetailBinding binding;
     private ActionBar actionBar;
-    private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference reference;
     private Query query;
+    private Query goalQuery;
 
     String eventId;
 
@@ -48,6 +50,23 @@ public class EventDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 CreateEvent event = snapshot.getValue(CreateEvent.class);
                 if (event != null) {
+                    // get image from Goal table
+                    goalQuery = reference.child("Goal").child(event.goaltitle);
+                    goalQuery.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Goal goal = snapshot.getValue(Goal.class);
+                            if (goal != null) {
+                                Glide.with(getBaseContext()).load(goal.goalslogo).into((ImageView) findViewById(R.id.goalTitleTv));
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                     binding.eventTitleTv.setText(event.eventtitle);
                     binding.eventDateTv.setText(event.eventdate);
                     binding.eventPointTv.setText(event.eventpoints);
