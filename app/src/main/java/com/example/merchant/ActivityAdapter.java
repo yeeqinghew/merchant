@@ -1,6 +1,7 @@
 package com.example.merchant;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,16 @@ public class ActivityAdapter extends FirebaseRecyclerAdapter<Activity, ActivityA
         holder.activityGoalTitleTv.setText(model.getGoalTitle());
         holder.activityPointsTv.setText(model.getPoints());
         holder.activityDescriptionTv.setText(model.getActivityDescription());
+
+        Context context = holder.itemView.getContext();
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ActivityDetailsActivity.class);
+                intent.putExtra("activityId", getRef(position).getKey());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @NonNull
