@@ -1,6 +1,8 @@
 package com.example.merchant;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,17 @@ public class EventAdapter extends FirebaseRecyclerAdapter<CreateEvent, EventAdap
         holder.eventDescription.setText(event.getEventdescription());
         holder.eventDate.setText(event.getEventdate());
         holder.eventLocation.setText(event.getEventlocation());
+
+        Context context = holder.itemView.getContext();
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, EventDetailActivity.class);
+                intent.putExtra("eventId", getRef(position).getKey());
+                Log.d("EVENT ADAPTER", getRef(position).getKey());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @NonNull
