@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="?attr/actionBarSize"
     tools:context=".ui.rewards.RewardsFragment">
 
     <TextView
@@ -36,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="10dp"
         android:src="@drawable/ic_qr_code_scanner_48px"
         app:backgroundTint="?attr/colorPrimary"
         app:fabSize="normal"
