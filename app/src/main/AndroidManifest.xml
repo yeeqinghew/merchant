@@ -17,7 +17,14 @@
         android:theme="@style/Theme.Merchant"
         tools:targetApi="31" >
         <activity
-            android:name=".ActivitiesActivity"
+            android:name=".ActivityDetailsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ActivityActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-public class ActivitiesActivity extends AppCompatActivity {
+public class ActivityActivity extends AppCompatActivity {
 
     private ActivityActivitiesBinding binding;
     private ActionBar actionBar;
@@ -38,6 +38,7 @@ public class ActivitiesActivity extends AppCompatActivity {
         // configure action bar, title
         actionBar = getSupportActionBar();
         actionBar.setTitle("Activities");
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // init firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
@@ -63,9 +64,19 @@ public class ActivitiesActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed(); // go to previous activity when back button of actionbar is clicked
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         activityAdapter.startListening();
+
+        // Remove crash on press back
+        activitiesList.getRecycledViewPool().clear();
+        activityAdapter.notifyDataSetChanged();
     }
 
     @Override

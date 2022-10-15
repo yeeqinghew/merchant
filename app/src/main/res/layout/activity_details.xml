@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityDetailsActivity">
+
+    <ImageView
+        android:id="@+id/qrDataIv"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:contentDescription=""
+        />
+
+    <TextView
+        android:id="@+id/activityDetailsTitle"
+        style="@style/TextAppearance.MaterialComponents.Headline4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/qrDataIv"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:text="Activity Title"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:padding="30dp"
+        />
+
+    <TextView
+        android:id="@+id/activityDetailsGoalTitle"
+        style="@style/TextAppearance.MaterialComponents.Overline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activityDetailsTitle"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:text="Goal Title"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        />
+
+    <TextView
+        android:id="@+id/activityDetailsDesc"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activityDetailsGoalTitle"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:text="Activity Desc"
+        android:textAlignment="center"
+        />
+
+
+</RelativeLayout>
