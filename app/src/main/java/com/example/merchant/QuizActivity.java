@@ -1,0 +1,85 @@
+package com.example.merchant;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
+import android.util.Log;
+
+import com.example.merchant.databinding.ActivityQuizBinding;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
+public class QuizActivity extends AppCompatActivity {
+    private ActivityQuizBinding binding;
+    private ActionBar actionBar;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference reference;
+    private Query query;
+
+    String questId;
+    private RecyclerView quizList;
+    private QuizAdapter quizAdapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityQuizBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        // configure action bar, title
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("Quizzes");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        // init firebase auth
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        // get quest id passed from Quest Fragment
+        questId = getIntent().getStringExtra("questId");
+        Log.d("questId", questId);
+
+        // Activity Recycler View
+        quizList = (RecyclerView) findViewById(R.id.quizRv);
+        quizList.setLayoutManager(new LinearLayoutManager(this));
+
+        reference = FirebaseDatabase.getInstance().getReference();
+        query = reference.child("Quiz").orderByChild("questId").equalTo(questId);
+
+        FirebaseRecyclerOptions<Quiz> options =
+                new FirebaseRecyclerOptions.Builder<Quiz>()
+                        .setQuery(query, Quiz.class).build();
+
+        quizAdapter = new QuizAdapter(options);
+        quizList.setAdapter(quizAdapter);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed(); // go to previous activity when back button of actionbar is clicked
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        quizAdapter.startListening();
+
+        // Remove crash on press back
+        quizList.getRecycledViewPool().clear();
+        quizAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        quizAdapter.stopListening();
+    }
+}

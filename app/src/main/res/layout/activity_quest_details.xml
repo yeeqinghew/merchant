@@ -143,4 +143,17 @@
         android:visibility="invisible"
         />
 
+    <TextView
+        android:id="@+id/clickToViewQuizTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Click to see Quiz"
+        android:layout_below="@+id/clickToViewLinkTv"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="10dp"
+        android:textColor="#0036B1"
+        android:textSize="16dp"
+        android:visibility="invisible"
+        />
+
 </RelativeLayout>
