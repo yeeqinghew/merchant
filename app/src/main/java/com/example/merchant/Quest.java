@@ -5,15 +5,19 @@ public class Quest {
     public String goalTitle;
     public String points;
     public String questTitle;
+    public String when;
+    public String who;
 
     public Quest() {
     }
 
-    public Quest(String description, String goalTitle, String points, String questTitle) {
+    public Quest(String description, String goalTitle, String points, String questTitle, String when, String who) {
         this.description = description;
         this.goalTitle = goalTitle;
         this.points = points;
         this.questTitle = questTitle;
+        this.when = when;
+        this.who = who;
     }
 
     public String getDescription() {
@@ -46,6 +50,22 @@ public class Quest {
 
     public void setQuestTitle(String questTitle) {
         this.questTitle = questTitle;
+    }
+
+    public String getWhen() {
+        return when;
+    }
+
+    public void setWhen(String when) {
+        this.when = when;
+    }
+
+    public String getWho() {
+        return who;
+    }
+
+    public void setWho(String who) {
+        this.who = who;
     }
 }
 
