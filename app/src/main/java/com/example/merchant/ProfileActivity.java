@@ -2,7 +2,9 @@ package com.example.merchant;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -29,6 +31,8 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference reference;
 
+    String uid, email, companyName, contactNo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +49,16 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         checkUser();
 
-        // logout user by clicking
-        binding.logoutBtn.setOnClickListener(new View.OnClickListener() {
+        binding.updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                firebaseAuth.signOut();
-                checkUser();
+            public void onClick(View view) {
+                // TODO: find merchant and update it
+                reference = FirebaseDatabase.getInstance().getReference("Merchants");
+                if (isNameChanged() || isContactNoChanged()) {
+                    Toast.makeText(ProfileActivity.this, "Updated successfully", Toast.LENGTH_LONG).show();
+                }
+
+                Toast.makeText(ProfileActivity.this, "No changes has been made", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -73,14 +81,16 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
         } else {
             // user logged in, get info
-            String uid = user.getUid();
-            String email = user.getEmail();
+            uid = user.getUid();
+            email = user.getEmail();
             // retrieve merchant's info by merchant's UID
             reference = firebaseDatabase.getReference("Merchants").child(uid);
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Merchant merchant = snapshot.getValue(Merchant.class);
+                    companyName = merchant.companyName;
+                    contactNo = merchant.contactNo;
                     if (merchant != null) {
                         binding.companyNameTv.setText(merchant.companyName);
                         binding.contactNoTv.setText(merchant.contactNo);
@@ -93,5 +103,26 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+
+    private boolean isNameChanged() {
+        if (!companyName.equals(binding.companyNameTv.getText().toString())) {
+            Log.d("companyName", binding.companyNameTv.getText().toString());
+            reference.child(uid).child("companyName").setValue(binding.companyNameTv.getText().toString());
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean isContactNoChanged() {
+        if (!contactNo.equals(binding.contactNoTv.getText().toString())) {
+            Log.d("contactNo", binding.contactNoTv.getText().toString());
+            reference.child(uid).child("contactNo").setValue(binding.contactNoTv.getText().toString());
+            return true;
+        }
+
+        return false;
     }
 }
