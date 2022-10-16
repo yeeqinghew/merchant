@@ -1,5 +1,6 @@
 package com.example.merchant;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,12 +16,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.merchant.databinding.ActivityQuestDetailsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +32,8 @@ import java.util.List;
 
 public class QuestDetailsActivity extends AppCompatActivity {
     private ActivityQuestDetailsBinding binding;
-//    private ActionBar actionBar;
+    private ActionBar actionBar;
+    private ProgressDialog progressDialog;
 
     public String questId;
     private FirebaseAuth firebaseAuth;
@@ -47,13 +52,16 @@ public class QuestDetailsActivity extends AppCompatActivity {
         Log.d("questId", questId);
 
         // action bar title
-        ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
         actionBar.setTitle("Quest Details");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         // init firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
+
+        // get current user
+        user = firebaseAuth.getCurrentUser();
 
         binding.clickToViewLinkTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,22 +73,59 @@ public class QuestDetailsActivity extends AppCompatActivity {
             }
         });
 
-        binding.joinBtn.setOnClickListener(new View.OnClickListener() {
+        // TODO: check if the user has joined this particular quest
+        // TODO: if yes, disable the button and change the text of button, show the activities
+        // TODO: if no, enable the button and do not show the activities
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Success");
+        progressDialog.setMessage("You have joined the quest");
+        progressDialog.setCanceledOnTouchOutside(false);
+
+        reference = FirebaseDatabase.getInstance().getReference("JoinedQuests");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                // get current user
-                user = firebaseAuth.getCurrentUser();
-                Log.d("Current User", user.getDisplayName());
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> joinedQuests = snapshot.getChildren();
 
-                firebaseAuth = FirebaseAuth.getInstance();
-                firebaseDatabase = FirebaseDatabase.getInstance();
+                for(DataSnapshot joinedQuest: joinedQuests) {
+                    JoinedQuest q = joinedQuest.getValue(JoinedQuest.class);
 
-                reference = FirebaseDatabase.getInstance().getReference("JoinedQuests");
+                    if(q != null) {
+                        if(q.merchantId.equalsIgnoreCase(user.getUid().toString()) && q.questId.equalsIgnoreCase(questId)) {
+                            binding.joinBtn.setText("You have joined the quest");
+                            binding.joinBtn.setEnabled(false);
+                            binding.clickToViewLinkTv.setVisibility(View.VISIBLE);
+                            return;
+                        }
+                    }
+                }
 
-                JoinedQuest joinedQuest = new JoinedQuest();
-                joinedQuest.setQuestId(questId);
-                joinedQuest.setMerchantId(user.getUid());
-                reference.push().setValue(joinedQuest);
+                binding.joinBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        progressDialog.show();
+                        firebaseAuth = FirebaseAuth.getInstance();
+                        firebaseDatabase = FirebaseDatabase.getInstance();
+
+                        reference = FirebaseDatabase.getInstance().getReference("JoinedQuests");
+
+                        JoinedQuest joinedQuest = new JoinedQuest();
+                        joinedQuest.setQuestId(questId);
+                        joinedQuest.setMerchantId(user.getUid());
+                        reference.push().setValue(joinedQuest).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                progressDialog.dismiss();
+                                finish();
+                            }
+                        });
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
