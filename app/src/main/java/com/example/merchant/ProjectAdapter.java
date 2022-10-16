@@ -1,5 +1,7 @@
 package com.example.merchant;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,16 @@ public class ProjectAdapter extends FirebaseRecyclerAdapter<Project, ProjectAdap
         Glide.with(holder.projectImage.getContext()).load(project.getImage()).into(holder.projectImage);
         holder.projectTitle.setText(project.getTitle());
         holder.projectDescription.setText(project.getDesc());
+
+        Context context = holder.itemView.getContext();
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProjectDetailsActivity.class);
+                intent.putExtra("projectId", getRef(position).getKey());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @NonNull

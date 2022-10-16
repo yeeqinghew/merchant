@@ -73,9 +73,6 @@ public class QuestDetailsActivity extends AppCompatActivity {
             }
         });
 
-        // TODO: check if the user has joined this particular quest
-        // TODO: if yes, disable the button and change the text of button, show the activities
-        // TODO: if no, enable the button and do not show the activities
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Success");
         progressDialog.setMessage("You have joined the quest");
@@ -147,7 +144,6 @@ public class QuestDetailsActivity extends AppCompatActivity {
                     binding.questDetailsWho.setText(questWho);
                     binding.questDetailsDesc.setText(questDesc);
                     binding.questPointsChip.setText(questPoints);
-
                 }
             }
         });
