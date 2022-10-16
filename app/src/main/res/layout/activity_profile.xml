@@ -35,7 +35,7 @@
                 app:cardCornerRadius="40dp">
 
                 <ImageView
-                    android:id="@+id/rewardImageTv"
+                    android:id="@+id/profileImageTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"

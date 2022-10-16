@@ -1,8 +1,10 @@
 package com.example.merchant;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -52,10 +54,10 @@ public class ProfileActivity extends AppCompatActivity {
         binding.updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: find merchant and update it
                 reference = FirebaseDatabase.getInstance().getReference("Merchants");
-                if (isNameChanged() || isContactNoChanged()) {
+                if (isChanged()) {
                     Toast.makeText(ProfileActivity.this, "Updated successfully", Toast.LENGTH_LONG).show();
+                    return;
                 }
 
                 Toast.makeText(ProfileActivity.this, "No changes has been made", Toast.LENGTH_LONG).show();
@@ -106,19 +108,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    private boolean isNameChanged() {
-        if (!companyName.equals(binding.companyNameTv.getText().toString())) {
-            Log.d("companyName", binding.companyNameTv.getText().toString());
+    private boolean isChanged() {
+        if (!companyName.equals(binding.companyNameTv.getText().toString()) || !contactNo.equals(binding.contactNoTv.getText().toString())) {
             reference.child(uid).child("companyName").setValue(binding.companyNameTv.getText().toString());
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean isContactNoChanged() {
-        if (!contactNo.equals(binding.contactNoTv.getText().toString())) {
-            Log.d("contactNo", binding.contactNoTv.getText().toString());
             reference.child(uid).child("contactNo").setValue(binding.contactNoTv.getText().toString());
             return true;
         }

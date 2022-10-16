@@ -115,9 +115,10 @@ public class SignUpActivity extends AppCompatActivity {
                 // get user info
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 String email = user.getEmail();
+                String profilePicture = "https://firebasestorage.googleapis.com/v0/b/auth-54db4.appspot.com/o/Merchant%20Profile%20Pictures%2Fic_default_picture.jpg?alt=media&token=39e8b91f-8ee6-4416-b473-9a407b502fa5";
 
                 // create merchant account in Realtime Database so we can store info about merchant and retrieve them later
-                Merchant merchant = new Merchant(companyName, contactNo, email);
+                Merchant merchant = new Merchant(companyName, contactNo, email, profilePicture);
                 firebaseDatabase.getReference("Merchants")
                         .child(user.getUid())
                         .setValue(merchant).addOnCompleteListener(new OnCompleteListener<Void>() {
