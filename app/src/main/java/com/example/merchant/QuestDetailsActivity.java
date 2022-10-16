@@ -73,6 +73,16 @@ public class QuestDetailsActivity extends AppCompatActivity {
             }
         });
 
+        binding.clickToViewQuizTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), QuizActivity.class);
+                intent.putExtra("questId", questId);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                view.getContext().startActivity(intent);
+            }
+        });
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Success");
         progressDialog.setMessage("You have joined the quest");
@@ -92,6 +102,7 @@ public class QuestDetailsActivity extends AppCompatActivity {
                             binding.joinBtn.setText("You have joined the quest");
                             binding.joinBtn.setEnabled(false);
                             binding.clickToViewLinkTv.setVisibility(View.VISIBLE);
+                            binding.clickToViewQuizTv.setVisibility(View.VISIBLE);
                             return;
                         }
                     }
