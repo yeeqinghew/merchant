@@ -1,5 +1,7 @@
 package com.example.merchant;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +24,19 @@ public class RewardAdapter extends FirebaseRecyclerAdapter<Reward, RewardAdapter
 
     @Override
     public void onBindViewHolder(@NonNull RewardAdapter.RewardViewHolder holder, int position, @NonNull Reward reward) {
-            Glide.with(holder.rewardImage.getContext()).load(reward.getmImageUrl()).into(holder.rewardImage);
-            holder.rewardTitle.setText(reward.getTitle());
-            holder.rewardPoints.setText(reward.getPoint());
+        Glide.with(holder.rewardImage.getContext()).load(reward.getmImageUrl()).into(holder.rewardImage);
+        holder.rewardTitle.setText(reward.getTitle());
+        holder.rewardPoints.setText(reward.getPoint());
+
+        Context context = holder.itemView.getContext();
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, RewardDetailActivity.class);
+                intent.putExtra("rewardId", getRef(position).getKey());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @NonNull
@@ -37,6 +49,7 @@ public class RewardAdapter extends FirebaseRecyclerAdapter<Reward, RewardAdapter
     public static class RewardViewHolder extends RecyclerView.ViewHolder {
         ImageView rewardImage;
         TextView rewardTitle, rewardPoints;
+
         public RewardViewHolder(@NonNull View itemView) {
             super(itemView);
 
