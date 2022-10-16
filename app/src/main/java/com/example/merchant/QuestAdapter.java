@@ -35,7 +35,7 @@ public class QuestAdapter extends FirebaseRecyclerAdapter<Quest, QuestAdapter.Qu
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ActivityActivity.class);
+                Intent intent = new Intent(context, QuestDetailsActivity.class);
                 intent.putExtra("questId", getRef(position).getKey());
                 context.startActivity(intent);
             }
