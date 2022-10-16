@@ -50,7 +50,7 @@ public class ActivityDetailsActivity extends AppCompatActivity {
         binding = ActivityDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // get quest id passed from Quest Fragment
+        // get quest id passed from Quest Details Activity
         activityId = getIntent().getStringExtra("activityId");
         Log.d("activityId", activityId);
 

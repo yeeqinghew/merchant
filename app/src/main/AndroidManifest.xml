@@ -25,6 +25,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".QuestDetailsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ActivityDetailsActivity"
             android:exported="false">
             <meta-data
