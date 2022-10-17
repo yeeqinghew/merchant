@@ -67,6 +67,7 @@ public class EventDetailActivity extends AppCompatActivity {
                         }
                     });
 
+                    Glide.with(getBaseContext()).load(event.qrdata).into((ImageView) findViewById(R.id.eventQrDataTv));
                     binding.eventTitleTv.setText(event.eventtitle);
                     binding.eventDateTv.setText(event.eventdate);
                     binding.eventPointTv.setText(event.eventpoints);

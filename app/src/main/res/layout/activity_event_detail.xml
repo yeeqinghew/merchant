@@ -127,6 +127,27 @@
                         android:text="Event End Time"
                         android:textSize="16sp" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/eventQrCodeTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="QR Code"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/eventQrDataTv"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="true"
+                        android:src="@drawable/ic_home_black_24dp" />
+                </LinearLayout>
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
