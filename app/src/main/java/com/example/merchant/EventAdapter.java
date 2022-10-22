@@ -24,7 +24,7 @@ public class EventAdapter extends FirebaseRecyclerAdapter<CreateEvent, EventAdap
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position, @NonNull CreateEvent event) {
         // display image, title and description for event
-        Glide.with(holder.eventImage.getContext()).load(event.getImage()).into(holder.eventImage);
+        Glide.with(holder.eventImage.getContext()).load(event.getFile()).into(holder.eventImage);
         holder.eventTitle.setText(event.getEventtitle());
         holder.eventDescription.setText(event.getEventdescription());
         holder.eventDate.setText(event.getEventdate());

@@ -23,7 +23,7 @@ public class ProjectAdapter extends FirebaseRecyclerAdapter<Project, ProjectAdap
 
     @Override
     public void onBindViewHolder(@NonNull ProjectAdapter.ProjectViewHolder holder, int position, @NonNull Project project) {
-        Glide.with(holder.projectImage.getContext()).load(project.getImage()).into(holder.projectImage);
+        Glide.with(holder.projectImage.getContext()).load(project.getFile()).into(holder.projectImage);
         holder.projectTitle.setText(project.getTitle());
         holder.projectDescription.setText(project.getDesc());
 

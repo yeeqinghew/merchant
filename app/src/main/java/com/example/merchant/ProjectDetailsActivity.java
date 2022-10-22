@@ -1,6 +1,7 @@
 package com.example.merchant;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +14,7 @@ import com.example.merchant.databinding.ActivityProjectDetailsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -57,14 +59,29 @@ public class ProjectDetailsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Project project = snapshot.getValue(Project.class);
                 if(project != null) {
-                    goalQuery = reference.child("Goal").child(project.goal);
-                    goalQuery.addValueEventListener(new ValueEventListener() {
+                    goalQuery = reference.child("Goal").orderByChild("goalstitle").equalTo(project.getGoaltitle());
+                    goalQuery.addChildEventListener(new ChildEventListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                             Goal goal = snapshot.getValue(Goal.class);
                             if (goal != null) {
                                 Glide.with(getBaseContext()).load(goal.goalslogo).into((ImageView) findViewById(R.id.projectDetailsGoalIv));
                             }
+                        }
+
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
                         }
 
                         @Override
@@ -74,8 +91,8 @@ public class ProjectDetailsActivity extends AppCompatActivity {
                     });
                     binding.projectDetailsTitleTv.setText(project.title);
                     binding.projectDetailsDescTv.setText(project.desc);
-                    binding.projectDetailsUrlTv.setText(project.projecturl);
-                    Glide.with(getBaseContext()).load(project.image).into((ImageView) findViewById(R.id.projectDetailsImgIv));
+                    binding.projectDetailsUrlTv.setText(project.url);
+                    Glide.with(getBaseContext()).load(project.file).into((ImageView) findViewById(R.id.projectDetailsImgIv));
                 }
             }
             @Override
