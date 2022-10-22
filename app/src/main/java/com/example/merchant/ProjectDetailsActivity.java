@@ -5,8 +5,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -32,6 +35,7 @@ public class ProjectDetailsActivity extends AppCompatActivity {
     private DatabaseReference reference;
     private Query query;
     private Query goalQuery;
+    private Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,6 @@ public class ProjectDetailsActivity extends AppCompatActivity {
 
         // get project id passed from Project Fragment
         projectId = getIntent().getStringExtra("projectId");
-        Log.d("projectId", projectId);
 
         // action bar title
         actionBar = getSupportActionBar();
@@ -51,6 +54,17 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         // init firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
+
+        binding.projectDetailsUrlTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(uri);
+                startActivity(intent);
+            }
+        });
 
         reference = FirebaseDatabase.getInstance().getReference();
         query = reference.child("Project").child(projectId);
@@ -92,6 +106,7 @@ public class ProjectDetailsActivity extends AppCompatActivity {
                     binding.projectDetailsTitleTv.setText(project.title);
                     binding.projectDetailsDescTv.setText(project.desc);
                     binding.projectDetailsUrlTv.setText(project.url);
+                    uri = Uri.parse(project.url);
                     Glide.with(getBaseContext()).load(project.file).into((ImageView) findViewById(R.id.projectDetailsImgIv));
                 }
             }
