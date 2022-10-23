@@ -1,37 +1,33 @@
 package com.example.merchant;
 
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.util.Log;
 
 import com.example.merchant.databinding.ActivityQuizBinding;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 public class QuizActivity extends AppCompatActivity {
+    public String customizedQuestId;
+    String questId;
     private ActivityQuizBinding binding;
     private ActionBar actionBar;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference reference;
     private Query query;
-    public String customizedQuestId;
-
-    String questId;
     private RecyclerView quizList;
     private QuizAdapter quizAdapter;
 
@@ -60,12 +56,13 @@ public class QuizActivity extends AppCompatActivity {
 
 
         reference = FirebaseDatabase.getInstance().getReference();
-        FirebaseDatabase.getInstance().getReference("Quest").child(questId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+
+        // get quest ID
+        reference.child("Quest").child(questId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful() && task.getResult().exists()) {
                     DataSnapshot dataSnapshot = task.getResult();
-
                     customizedQuestId = String.valueOf(dataSnapshot.child("questId").getValue());
                 }
             }
