@@ -1,5 +1,6 @@
 package com.example.merchant;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +26,8 @@ public class QuizAdapter extends FirebaseRecyclerAdapter<Quiz, QuizAdapter.QuizV
 
     @Override
     protected void onBindViewHolder(@NonNull QuizViewHolder holder, int position, @NonNull Quiz model) {
-        holder.quizDescTv.setText(model.getDescription());
-        holder.quizPointsTv.setText(model.getPoints());
-        holder.quizTypeChip.setText(model.getQuizType());
+        holder.quizPointsTv.setText(model.points);
+        holder.quizTypeChip.setText(model.quizType);
     }
 
     @NonNull
@@ -38,14 +38,12 @@ public class QuizAdapter extends FirebaseRecyclerAdapter<Quiz, QuizAdapter.QuizV
     }
 
     public class QuizViewHolder extends RecyclerView.ViewHolder {
-        TextView quizDescTv;
         TextView quizPointsTv;
         Chip quizTypeChip;
 
         public QuizViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            quizDescTv = itemView.findViewById(R.id.quizDescTv);
             quizPointsTv = itemView.findViewById(R.id.quizPointsTv);
             quizTypeChip = itemView.findViewById(R.id.quizTypeChip);
         }

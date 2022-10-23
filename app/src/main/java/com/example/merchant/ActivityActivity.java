@@ -1,4 +1,5 @@
 package com.example.merchant;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,7 +10,10 @@ import android.util.Log;
 
 import com.example.merchant.databinding.ActivityActivitiesBinding;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -22,6 +26,7 @@ public class ActivityActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference reference;
     private Query query;
+    public String customizedQuestId;
 
     private RecyclerView activitiesList;
     ActivityAdapter activityAdapter;
@@ -53,7 +58,17 @@ public class ActivityActivity extends AppCompatActivity {
         activitiesList.setLayoutManager(new LinearLayoutManager(this));
 
         reference = FirebaseDatabase.getInstance().getReference();
-        query = reference.child("Activities").orderByChild("questId").equalTo(questId);
+        FirebaseDatabase.getInstance().getReference("Quest").child(questId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful() && task.getResult().exists()) {
+                    DataSnapshot dataSnapshot = task.getResult();
+
+                    customizedQuestId = String.valueOf(dataSnapshot.child("questId").getValue());
+                }
+            }
+        });
+        query = reference.child("Activities").orderByChild("questId").equalTo(customizedQuestId);
 
         FirebaseRecyclerOptions<Activity> options =
                 new FirebaseRecyclerOptions.Builder<Activity>()

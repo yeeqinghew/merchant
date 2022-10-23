@@ -1,53 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="6dp"
     android:elevation="6dp"
+    app:cardCornerRadius="6dp"
     app:cardUseCompatPadding="true">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp">
-
-        <TextView
-            android:id="@+id/quizDescTv"
-            style="@style/TextAppearance.MaterialComponents.Body2"
-            android:layout_width="242dp"
-            android:layout_height="wrap_content"
-            android:text="Quiz Desc"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/quizPointsIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_plant"
-            android:layout_below="@+id/quizDescTv"
-           />
-        <TextView
-            android:id="@+id/quizPointsTv"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/quizDescTv"
-            android:layout_toRightOf="@+id/quizPointsIcon"
-            android:text="10"
-            android:textStyle="bold" />
+        android:padding="15dp"
+        android:orientation="vertical">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/quizTypeChip"
             android:layout_width="188dp"
             android:layout_height="50dp"
-            android:layout_toEndOf="@+id/quizDescTv"
             android:gravity="center"
             android:text="Speed Quiz"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="15dp"
             app:chipBackgroundColor="#4BB543" />
-    </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/quizPointsIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toEndOf="@id/quizTypeChip"
+                android:src="@drawable/ic_plant" />
+            <TextView
+                android:id="@+id/quizPointsTv"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/quizPointsIcon"
+
+                android:text="10"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -4,6 +4,7 @@ public class Quest {
     public String description;
     public String goalTitle;
     public String points;
+    public String questId;
     public String questTitle;
     public String when;
     public String who;
@@ -11,13 +12,22 @@ public class Quest {
     public Quest() {
     }
 
-    public Quest(String description, String goalTitle, String points, String questTitle, String when, String who) {
+    public Quest(String description, String goalTitle, String points, String questId, String questTitle, String when, String who) {
         this.description = description;
         this.goalTitle = goalTitle;
         this.points = points;
+        this.questId = questId;
         this.questTitle = questTitle;
         this.when = when;
         this.who = who;
+    }
+
+    public String getQuestId() {
+        return questId;
+    }
+
+    public void setQuestId(String questId) {
+        this.questId = questId;
     }
 
     public String getDescription() {

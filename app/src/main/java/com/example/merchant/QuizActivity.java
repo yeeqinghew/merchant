@@ -1,5 +1,7 @@
 package com.example.merchant;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,7 +12,12 @@ import android.util.Log;
 
 import com.example.merchant.databinding.ActivityQuizBinding;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -22,6 +29,7 @@ public class QuizActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference reference;
     private Query query;
+    public String customizedQuestId;
 
     String questId;
     private RecyclerView quizList;
@@ -50,9 +58,20 @@ public class QuizActivity extends AppCompatActivity {
         quizList = (RecyclerView) findViewById(R.id.quizRv);
         quizList.setLayoutManager(new LinearLayoutManager(this));
 
-        reference = FirebaseDatabase.getInstance().getReference();
-        query = reference.child("Quiz").orderByChild("questId").equalTo(questId);
 
+        reference = FirebaseDatabase.getInstance().getReference();
+        FirebaseDatabase.getInstance().getReference("Quest").child(questId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful() && task.getResult().exists()) {
+                    DataSnapshot dataSnapshot = task.getResult();
+
+                    customizedQuestId = String.valueOf(dataSnapshot.child("questId").getValue());
+                }
+            }
+        });
+
+        query = reference.child("Quiz").orderByChild("questId").equalTo(customizedQuestId);
         FirebaseRecyclerOptions<Quiz> options =
                 new FirebaseRecyclerOptions.Builder<Quiz>()
                         .setQuery(query, Quiz.class).build();
