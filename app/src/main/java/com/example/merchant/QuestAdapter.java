@@ -31,12 +31,14 @@ public class QuestAdapter extends FirebaseRecyclerAdapter<Quest, QuestAdapter.Qu
         holder.questDescriptionTv.setText(model.getDescription());
         holder.questPoints.setText(model.getPoints());
 
+        String customizedQuestId = model.questId;
+
         Context context = holder.itemView.getContext();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, QuestDetailsActivity.class);
-                intent.putExtra("questId", getRef(position).getKey());
+                intent.putExtra("questId", customizedQuestId);
                 context.startActivity(intent);
             }
         });

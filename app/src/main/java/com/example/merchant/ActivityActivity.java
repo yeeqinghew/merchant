@@ -58,18 +58,7 @@ public class ActivityActivity extends AppCompatActivity {
         activitiesList.setLayoutManager(new LinearLayoutManager(this));
 
         reference = FirebaseDatabase.getInstance().getReference();
-        // get quest ID
-        reference.child("Quest").child(questId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful() && task.getResult().exists()) {
-                    DataSnapshot dataSnapshot = task.getResult();
-                    customizedQuestId = String.valueOf(dataSnapshot.child("questId").getValue());
-                }
-            }
-        });
-
-        query = reference.child("Activities").orderByChild("questId").equalTo(customizedQuestId);
+        query = reference.child("Activities").orderByChild("questId").equalTo(questId);
 
         FirebaseRecyclerOptions<Activity> options =
                 new FirebaseRecyclerOptions.Builder<Activity>()

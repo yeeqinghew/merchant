@@ -20,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 public class QuizActivity extends AppCompatActivity {
-    public String customizedQuestId;
     String questId;
     private ActivityQuizBinding binding;
     private ActionBar actionBar;
@@ -56,19 +55,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
         reference = FirebaseDatabase.getInstance().getReference();
-
-        // get quest ID
-        reference.child("Quest").child(questId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful() && task.getResult().exists()) {
-                    DataSnapshot dataSnapshot = task.getResult();
-                    customizedQuestId = String.valueOf(dataSnapshot.child("questId").getValue());
-                }
-            }
-        });
-
-        query = reference.child("Quiz").orderByChild("questId").equalTo(customizedQuestId);
+        query = reference.child("Quiz").orderByChild("questId").equalTo(questId);
         FirebaseRecyclerOptions<Quiz> options =
                 new FirebaseRecyclerOptions.Builder<Quiz>()
                         .setQuery(query, Quiz.class).build();

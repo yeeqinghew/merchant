@@ -6,6 +6,9 @@ public class Quiz {
     public String quizID;
     public String quizType;
 
+    public Quiz() {
+    }
+
     public Quiz(String points, String questId, String quizID, String quizType) {
         this.points = points;
         this.questId = questId;
