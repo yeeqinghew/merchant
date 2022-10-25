@@ -3,6 +3,7 @@ package com.example.merchant;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -28,6 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 public class ProjectDetailsActivity extends AppCompatActivity {
     private ActivityProjectDetailsBinding binding;
     private ActionBar actionBar;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
     public String projectId;
     private FirebaseAuth firebaseAuth;
@@ -113,6 +116,17 @@ public class ProjectDetailsActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        binding.donateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder = new AlertDialog.Builder(ProjectDetailsActivity.this);
+                final View popupView = getLayoutInflater().inflate(R.layout.popup, null);
+                dialogBuilder.setView(popupView);
+                dialog = dialogBuilder.create();
+                dialog.show();
             }
         });
     }

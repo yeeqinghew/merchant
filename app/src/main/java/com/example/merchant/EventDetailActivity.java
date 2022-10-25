@@ -58,7 +58,6 @@ public class EventDetailActivity extends AppCompatActivity {
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                             Goal goal = snapshot.getValue(Goal.class);
-                            Log.d("GOAL LOGO", String.valueOf(goal));
                             if (goal != null) {
                                 Glide.with(getBaseContext()).load(goal.getGoalslogo()).into((ImageView) findViewById(R.id.goalTitleTv));
                             }
@@ -84,7 +83,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
                         }
                     });
-
+                    Glide.with(getBaseContext()).load(event.getFile()).into((ImageView) findViewById(R.id.eventImageTv));
                     binding.eventTitleTv.setText(event.getEventtitle());
                     binding.eventDateTv.setText(event.getEventdate());
                     binding.eventPointTv.setText(event.getEventpoints());
