@@ -132,8 +132,6 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         binding.donateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: card info is stored in DB, don't show popup, just go through
-                // TODO: !card info is stored in DB, show popup
                 checkUser();
                 if (hasCreditCard) {
                     Toast.makeText(ProjectDetailsActivity.this, "You've donated with your credit card!", Toast.LENGTH_SHORT).show();
@@ -145,6 +143,8 @@ public class ProjectDetailsActivity extends AppCompatActivity {
                     dialog.show();
 
                     Button donateBtn = (Button) dialog.findViewById(R.id.donateBtn);
+                    Button cancelBtn = (Button) dialog.findViewById(R.id.cancelBtn);
+
                     donateBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -162,6 +162,13 @@ public class ProjectDetailsActivity extends AppCompatActivity {
                             } else {
                                 Toast.makeText(ProjectDetailsActivity.this, "Please input all fields for your credit card.", Toast.LENGTH_SHORT).show();
                             }
+                        }
+                    });
+
+                    cancelBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
                         }
                     });
                 }
@@ -195,6 +202,7 @@ public class ProjectDetailsActivity extends AppCompatActivity {
                     if (merchant != null) {
                         if (!merchant.cardNumber.equals("0")) {
                             hasCreditCard = true;
+
                             return;
                         }
                     }

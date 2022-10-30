@@ -46,7 +46,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-
             <EditText
                 android:id="@+id/expiryDateTv"
                 android:layout_width="match_parent"
@@ -67,16 +66,26 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancelBtn"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Cancel"></Button>
 
         <Button
             android:id="@+id/donateBtn"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:text="Donate now"></Button>
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>
