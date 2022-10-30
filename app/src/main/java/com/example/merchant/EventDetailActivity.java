@@ -52,6 +52,7 @@ public class EventDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 CreateEvent event = snapshot.getValue(CreateEvent.class);
                 if (event != null) {
+                    Log.d("Event", String.valueOf(event));
                     // get image from Goal table
                     goalQuery = reference.child("Goal").orderByChild("goalstitle").equalTo(event.getGoaltitle());
                     goalQuery.addChildEventListener(new ChildEventListener() {
@@ -84,6 +85,7 @@ public class EventDetailActivity extends AppCompatActivity {
                         }
                     });
                     Glide.with(getBaseContext()).load(event.getFile()).into((ImageView) findViewById(R.id.eventImageTv));
+                    Glide.with(getBaseContext()).load(event.getQrcode()).into((ImageView) findViewById(R.id.eventQrCode));
                     binding.eventTitleTv.setText(event.getEventtitle());
                     binding.eventDateTv.setText(event.getEventdate());
                     binding.eventPointTv.setText(event.getEventpoints());

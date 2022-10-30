@@ -14,12 +14,13 @@ public class CreateEvent {
     private String goalspoints;
     private String goaltitle;
     private String maxparticipants;
+    private String qrcode;
 
     public CreateEvent() {
 
     }
 
-    public CreateEvent(String challengetitle, String eventdate, String eventdescription, String eventendtime, String eventlocation, String eventpoints, String eventstarttime, String eventtitle, String file, String gmapslocation, String goalspoints, String goaltitle, String maxparticipants) {
+    public CreateEvent(String challengetitle, String eventdate, String eventdescription, String eventendtime, String eventlocation, String eventpoints, String eventstarttime, String eventtitle, String file, String gmapslocation, String goalspoints, String goaltitle, String maxparticipants, String qrcode) {
         this.challengetitle = challengetitle;
         this.eventdate = eventdate;
         this.eventdescription = eventdescription;
@@ -33,6 +34,7 @@ public class CreateEvent {
         this.goalspoints = goalspoints;
         this.goaltitle = goaltitle;
         this.maxparticipants = maxparticipants;
+        this.qrcode = qrcode;
     }
 
     public String getChallengetitle() {
@@ -85,5 +87,9 @@ public class CreateEvent {
 
     public String getMaxparticipants() {
         return maxparticipants;
+    }
+
+    public String getQrcode() {
+        return qrcode;
     }
 }
