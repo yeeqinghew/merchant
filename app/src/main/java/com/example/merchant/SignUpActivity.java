@@ -1,17 +1,16 @@
 package com.example.merchant;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.merchant.databinding.ActivitySignUpBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -118,7 +117,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String profilePicture = "https://firebasestorage.googleapis.com/v0/b/auth-54db4.appspot.com/o/Merchant%20Profile%20Pictures%2Fic_default_picture.jpg?alt=media&token=39e8b91f-8ee6-4416-b473-9a407b502fa5";
 
                 // create merchant account in Realtime Database so we can store info about merchant and retrieve them later
-                Merchant merchant = new Merchant(companyName, contactNo, email, profilePicture);
+                Merchant merchant = new Merchant(companyName, contactNo, email, profilePicture, "0", "0", "0");
                 firebaseDatabase.getReference("Merchants")
                         .child(user.getUid())
                         .setValue(merchant).addOnCompleteListener(new OnCompleteListener<Void>() {

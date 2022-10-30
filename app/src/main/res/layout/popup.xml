@@ -32,9 +32,12 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:id="@+id/cardNumberTv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Card number"></EditText>
+            android:inputType="number"
+            android:maxLength="16"
+            android:hint="Card number"></EditText>
 
     </LinearLayout>
 
@@ -45,15 +48,21 @@
 
 
             <EditText
+                android:id="@+id/expiryDateTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:inputType="number"
+                android:maxLength="4"
                 android:hint="MM/YY"></EditText>
 
             <EditText
+                android:id="@+id/ccvTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:inputType="number"
+                android:maxLength="3"
                 android:hint="CCV"></EditText>
 
     </LinearLayout>
@@ -63,6 +72,7 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/donateBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

@@ -9,15 +9,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.merchant.databinding.ActivityProjectDetailsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +44,11 @@ public class ProjectDetailsActivity extends AppCompatActivity {
     private Query query;
     private Query goalQuery;
     private Uri uri;
+
+    String uid;
+    Boolean hasCreditCard = false;
+
+    String cardNumber, expiryDate, ccv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,11 +132,39 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         binding.donateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogBuilder = new AlertDialog.Builder(ProjectDetailsActivity.this);
-                final View popupView = getLayoutInflater().inflate(R.layout.popup, null);
-                dialogBuilder.setView(popupView);
-                dialog = dialogBuilder.create();
-                dialog.show();
+                // TODO: card info is stored in DB, don't show popup, just go through
+                // TODO: !card info is stored in DB, show popup
+                checkUser();
+                if (hasCreditCard) {
+                    Toast.makeText(ProjectDetailsActivity.this, "You've donated with your credit card!", Toast.LENGTH_SHORT).show();
+                } else {
+                    dialogBuilder = new AlertDialog.Builder(ProjectDetailsActivity.this);
+                    final View popupView = getLayoutInflater().inflate(R.layout.popup, null);
+                    dialogBuilder.setView(popupView);
+                    dialog = dialogBuilder.create();
+                    dialog.show();
+
+                    Button donateBtn = (Button) dialog.findViewById(R.id.donateBtn);
+                    donateBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            cardNumber = ((EditText) dialog.findViewById(R.id.cardNumberTv)).getText().toString();
+                            expiryDate = ((EditText) dialog.findViewById(R.id.expiryDateTv)).getText().toString();
+                            ccv = ((EditText) dialog.findViewById(R.id.ccvTv)).getText().toString();
+
+                            reference = FirebaseDatabase.getInstance().getReference("Merchants");
+                            if (!TextUtils.isEmpty(cardNumber) & !TextUtils.isEmpty(expiryDate) & !TextUtils.isEmpty(ccv) ){
+                                reference.child(uid).child("cardNumber").setValue(cardNumber);
+                                reference.child(uid).child("expiryDate").setValue(expiryDate);
+                                reference.child(uid).child("ccv").setValue(ccv);
+                                dialog.dismiss();
+                                Toast.makeText(ProjectDetailsActivity.this, "Updated your credit card!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(ProjectDetailsActivity.this, "Please input all fields for your credit card.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
             }
         });
     }
@@ -135,5 +173,37 @@ public class ProjectDetailsActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed(); // go to previous activity when back button of actionbar is clicked
         return super.onSupportNavigateUp();
+    }
+
+    private void checkUser() {
+        // get current user
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        if (user == null) {
+            // user not logged in, move to login
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        } else {
+            // user logged in, get info
+            uid = user.getUid();
+            // retrieve merchant's info by merchant's UID
+            reference = firebaseDatabase.getReference("Merchants").child(uid);
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Merchant merchant = snapshot.getValue(Merchant.class);
+                    if (merchant != null) {
+                        if (!merchant.cardNumber.equals("0")) {
+                            hasCreditCard = true;
+                            return;
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
     }
 }
