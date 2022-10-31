@@ -46,7 +46,6 @@ public class RewardDetailActivity extends AppCompatActivity {
                 Reward reward = snapshot.getValue(Reward.class);
                 if (reward != null) {
                     Glide.with(getBaseContext()).load(reward.mImageUrl).into((ImageView) findViewById(R.id.rewardImageTv));
-                    Glide.with(getBaseContext()).load(reward.qrUrl).into((ImageView) findViewById(R.id.rewardQRCodeTv));
                     actionBar.setTitle(reward.title);
                     binding.rewardDescriptionTv.setText(reward.description);
                     binding.rewardPointsTv.setText(reward.point);

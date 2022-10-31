@@ -9,61 +9,84 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <TextView
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Add your payment information"></TextView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Card information"></TextView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/cardNumberTv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="number"
-            android:maxLength="16"
-            android:hint="Card number"></EditText>
+            android:text="Donation Amount"></TextView>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingBottom="24dp">
+
+        <EditText
+            android:id="@+id/amountTv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Amount ($)"
+            android:inputType="number"
+            android:maxLength="16"></EditText>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/paymentSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Add your payment information"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/cardNumberTv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Card number"
+                android:inputType="number"
+                android:maxLength="16"></EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/expiryDateTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:hint="MM/YY"
                 android:inputType="number"
-                android:maxLength="4"
-                android:hint="MM/YY"></EditText>
+                android:maxLength="4"></EditText>
 
             <EditText
                 android:id="@+id/ccvTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:hint="CCV"
                 android:inputType="number"
-                android:maxLength="3"
-                android:hint="CCV"></EditText>
+                android:maxLength="3"></EditText>
 
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -73,18 +96,20 @@
 
         <Button
             android:id="@+id/cancelBtn"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="Cancel"></Button>
+            android:layout_weight="1"
+            android:backgroundTint="@color/design_default_color_on_primary"
+            android:text="Cancel"
+            android:textColor="@color/black"></Button>
 
         <Button
             android:id="@+id/donateBtn"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_weight="1"
             android:text="Donate now"></Button>
     </LinearLayout>
 

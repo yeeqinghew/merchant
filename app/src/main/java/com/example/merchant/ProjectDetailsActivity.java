@@ -1,11 +1,5 @@
 package com.example.merchant;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,12 +9,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.merchant.databinding.ActivityProjectDetailsBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -32,23 +31,20 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class ProjectDetailsActivity extends AppCompatActivity {
+    public String projectId;
+    String uid;
+    Boolean hasCreditCard = false;
+    String amount, cardNumber, expiryDate, ccv;
     private ActivityProjectDetailsBinding binding;
     private ActionBar actionBar;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-
-    public String projectId;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference reference;
     private Query query;
     private Query goalQuery;
     private Uri uri;
-
-    String uid;
-    Boolean hasCreditCard = false;
-
-    String cardNumber, expiryDate, ccv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +64,9 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
+        checkUser();
+        Log.d("CREDITCARD", String.valueOf(hasCreditCard));
+
         binding.projectDetailsUrlTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +84,7 @@ public class ProjectDetailsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Project project = snapshot.getValue(Project.class);
-                if(project != null) {
+                if (project != null) {
                     goalQuery = reference.child("Goal").orderByChild("goalstitle").equalTo(project.getGoaltitle());
                     goalQuery.addChildEventListener(new ChildEventListener() {
                         @Override
@@ -123,6 +122,7 @@ public class ProjectDetailsActivity extends AppCompatActivity {
                     Glide.with(getBaseContext()).load(project.file).into((ImageView) findViewById(R.id.projectDetailsImgIv));
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -132,46 +132,60 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         binding.donateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkUser();
+                dialogBuilder = new AlertDialog.Builder(ProjectDetailsActivity.this);
+                final View popupView = getLayoutInflater().inflate(R.layout.popup, null);
+                dialogBuilder.setView(popupView);
+                dialog = dialogBuilder.create();
+                dialog.show();
+
                 if (hasCreditCard) {
-                    Toast.makeText(ProjectDetailsActivity.this, "You've donated with your credit card!", Toast.LENGTH_SHORT).show();
-                } else {
-                    dialogBuilder = new AlertDialog.Builder(ProjectDetailsActivity.this);
-                    final View popupView = getLayoutInflater().inflate(R.layout.popup, null);
-                    dialogBuilder.setView(popupView);
-                    dialog = dialogBuilder.create();
-                    dialog.show();
+                    // hide paymentSection
+                    LinearLayout paymentSection = (LinearLayout) dialog.findViewById(R.id.paymentSection);
+                    paymentSection.setVisibility(View.INVISIBLE);
+                }
 
-                    Button donateBtn = (Button) dialog.findViewById(R.id.donateBtn);
-                    Button cancelBtn = (Button) dialog.findViewById(R.id.cancelBtn);
+                Button donateBtn = (Button) dialog.findViewById(R.id.donateBtn);
+                Button cancelBtn = (Button) dialog.findViewById(R.id.cancelBtn);
 
-                    donateBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            cardNumber = ((EditText) dialog.findViewById(R.id.cardNumberTv)).getText().toString();
-                            expiryDate = ((EditText) dialog.findViewById(R.id.expiryDateTv)).getText().toString();
-                            ccv = ((EditText) dialog.findViewById(R.id.ccvTv)).getText().toString();
+                donateBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        amount = ((EditText) dialog.findViewById(R.id.amountTv)).getText().toString();
+                        cardNumber = ((EditText) dialog.findViewById(R.id.cardNumberTv)).getText().toString();
+                        expiryDate = ((EditText) dialog.findViewById(R.id.expiryDateTv)).getText().toString();
+                        ccv = ((EditText) dialog.findViewById(R.id.ccvTv)).getText().toString();
 
-                            reference = FirebaseDatabase.getInstance().getReference("Merchants");
-                            if (!TextUtils.isEmpty(cardNumber) & !TextUtils.isEmpty(expiryDate) & !TextUtils.isEmpty(ccv) ){
+                        reference = FirebaseDatabase.getInstance().getReference("Merchants");
+                        if (hasCreditCard) {
+                            if (!TextUtils.isEmpty(amount)) {
+                                Toast.makeText(ProjectDetailsActivity.this, "You've successfully donated $ " + amount, Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+
+                            } else {
+                                Toast.makeText(ProjectDetailsActivity.this, "Please enter amount!", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        } else {
+                            if (!TextUtils.isEmpty(amount) && !TextUtils.isEmpty(amount) & !TextUtils.isEmpty(cardNumber) & !TextUtils.isEmpty(expiryDate) & !TextUtils.isEmpty(ccv)) {
                                 reference.child(uid).child("cardNumber").setValue(cardNumber);
                                 reference.child(uid).child("expiryDate").setValue(expiryDate);
                                 reference.child(uid).child("ccv").setValue(ccv);
                                 dialog.dismiss();
-                                Toast.makeText(ProjectDetailsActivity.this, "Updated your credit card!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProjectDetailsActivity.this, "You've successfully donate $ " + amount + " updated your credit card!", Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(ProjectDetailsActivity.this, "Please input all fields for your credit card.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProjectDetailsActivity.this, "Please fill up all the required fields!", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
                             }
                         }
-                    });
+                    }
+                });
 
-                    cancelBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            dialog.dismiss();
-                        }
-                    });
-                }
+                cancelBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
     }
@@ -186,32 +200,27 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         // get current user
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        if (user == null) {
-            // user not logged in, move to login
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-        } else {
-            // user logged in, get info
-            uid = user.getUid();
-            // retrieve merchant's info by merchant's UID
-            reference = firebaseDatabase.getReference("Merchants").child(uid);
-            reference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Merchant merchant = snapshot.getValue(Merchant.class);
-                    if (merchant != null) {
-                        if (!merchant.cardNumber.equals("0")) {
-                            hasCreditCard = true;
+        // user logged in, get info
+        uid = user.getUid();
+        // retrieve merchant's info by merchant's UID
+        reference = firebaseDatabase.getReference("Merchants").child(uid);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Merchant merchant = snapshot.getValue(Merchant.class);
+                if (merchant != null) {
+                    if (!merchant.cardNumber.equals("0")) {
+                        hasCreditCard = true;
 
-                            return;
-                        }
+                        return;
                     }
                 }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            }
 
-                }
-            });
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
