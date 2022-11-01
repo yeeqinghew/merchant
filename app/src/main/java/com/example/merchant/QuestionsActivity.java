@@ -48,7 +48,6 @@ public class QuestionsActivity extends AppCompatActivity {
 
     String quizId;
     private RecyclerView questionsList;
-//    QuestionAdapter questionAdapter;
 
     private List<HashMap<String, Object>> questions;
     private QuestionsAdapter questionsAdapter;

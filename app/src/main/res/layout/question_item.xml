@@ -31,14 +31,71 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/questionOptionsIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/list_48px" />
+                <TextView
+                    android:id="@+id/questionOptionsLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Options"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/questionOptionsTv"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QuestionAnswer"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/questionAnswerIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/verified_48px" />
+
+                <TextView
+                    android:id="@+id/questionAnswerLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Answer"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    />
+            </LinearLayout>
+
+
             <TextView
                 android:id="@+id/questionAnswerTv"
-                style="@style/TextAppearance.MaterialComponents.Body1"
+                style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="QuestionAnswer"
