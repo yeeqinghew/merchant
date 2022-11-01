@@ -1,5 +1,7 @@
 package com.example.merchant;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.chip.Chip;
+
+import org.w3c.dom.Text;
 
 public class QuizAdapter extends FirebaseRecyclerAdapter<Quiz, QuizAdapter.QuizViewHolder> {
     /**
@@ -28,6 +32,19 @@ public class QuizAdapter extends FirebaseRecyclerAdapter<Quiz, QuizAdapter.QuizV
     protected void onBindViewHolder(@NonNull QuizViewHolder holder, int position, @NonNull Quiz model) {
         holder.quizPointsTv.setText(model.points);
         holder.quizTypeChip.setText(model.quizType);
+        holder.quizTitle.setText(model.quizID);
+
+        String quizId = model.quizID;
+
+        Context context = holder.itemView.getContext();
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, QuestionsActivity.class);
+                intent.putExtra("quizId", quizId);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @NonNull
@@ -40,12 +57,14 @@ public class QuizAdapter extends FirebaseRecyclerAdapter<Quiz, QuizAdapter.QuizV
     public class QuizViewHolder extends RecyclerView.ViewHolder {
         TextView quizPointsTv;
         Chip quizTypeChip;
+        TextView quizTitle;
 
         public QuizViewHolder(@NonNull View itemView) {
             super(itemView);
 
             quizPointsTv = itemView.findViewById(R.id.quizPointsTv);
             quizTypeChip = itemView.findViewById(R.id.quizTypeChip);
+            quizTitle = itemView.findViewById(R.id.quizIdTv);
         }
     }
 }
