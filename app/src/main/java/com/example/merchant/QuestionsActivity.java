@@ -90,7 +90,6 @@ public class QuestionsActivity extends AppCompatActivity {
 
         questionsList = (RecyclerView) findViewById(R.id.questionsRv);
         questionsList.setLayoutManager(linearLayoutManager);
-        questionsList.setAdapter(questionsAdapter);
 
         query.addChildEventListener(new ChildEventListener() {
             @Override
@@ -99,8 +98,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 Log.d("CALUE", String.valueOf(questions));
 
                 questionsAdapter = new QuestionsAdapter(QuestionsActivity.this, questions);
-
-                questionsAdapter.notifyDataSetChanged();
+                questionsList.setAdapter(questionsAdapter);
             }
 
             @Override

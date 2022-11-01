@@ -36,12 +36,14 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsViewHolder> 
         HashMap<String, Object> questionMap = questions.get(position);
         Log.d("questionMap", String.valueOf(questionMap.get("questionTitle")));
         String questionTitle = questionMap.get("questionTitle").toString();
+        String questionAnswer = questionMap.get("questionAnswer").toString();
 
         holder.questionTitleTv.setText(questionTitle);
+        holder.questionAnswerTv.setText(questionAnswer);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return questions.size();
     }
 }
