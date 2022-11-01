@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.merchant.databinding.ActivityDetailsBinding;
 import com.example.merchant.databinding.ActivityProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -68,28 +69,29 @@ public class ActivityDetailsActivity extends AppCompatActivity {
                         String activityDesc = String.valueOf(dataSnapshot.child("activityDescription").getValue());
                         String activityTitle = String.valueOf(dataSnapshot.child("activityTitle").getValue());
                         String goalTitle = String.valueOf(dataSnapshot.child("goalTitle").getValue());
-                        qrData = String.valueOf(dataSnapshot.child("qrdata").getValue());
+                        qrData = String.valueOf(dataSnapshot.child("qrData").getValue());
 
                         // action bar title
                         actionBar = getSupportActionBar();
                         actionBar.setTitle(activityTitle);
                         actionBar.setDisplayHomeAsUpEnabled(true);
 
+                        Glide.with(ActivityDetailsActivity.this).load(qrData).into((ImageView) findViewById(R.id.qrDataIv));
+
                         binding.activityDetailsDesc.setText(activityDesc);
                         binding.activityDetailsTitle.setText(activityTitle);
                         binding.activityDetailsGoalTitle.setText(goalTitle);
-
                         //initializing MultiFormatWriter for QR code
-                        MultiFormatWriter mWriter = new MultiFormatWriter();
-                        try {
-                            //BitMatrix class to encode entered text and set Width & Height
-                            BitMatrix mMatrix = mWriter.encode(qrData, BarcodeFormat.QR_CODE, 400,400);
-                            BarcodeEncoder mEncoder = new BarcodeEncoder();
-                            Bitmap mBitmap = mEncoder.createBitmap(mMatrix);//creating bitmap of code
-                            binding.qrDataIv.setImageBitmap(mBitmap);//Setting generated QR code to imageView
-                        } catch (WriterException e) {
-                            e.printStackTrace();
-                        }
+//                        MultiFormatWriter mWriter = new MultiFormatWriter();
+//                        try {
+//                            //BitMatrix class to encode entered text and set Width & Height
+//                            BitMatrix mMatrix = mWriter.encode(qrData, BarcodeFormat.QR_CODE, 400,400);
+//                            BarcodeEncoder mEncoder = new BarcodeEncoder();
+//                            Bitmap mBitmap = mEncoder.createBitmap(mMatrix);//creating bitmap of code
+//                            binding.qrDataIv.setImageBitmap(mBitmap);//Setting generated QR code to imageView
+//                        } catch (WriterException e) {
+//                            e.printStackTrace();
+//                        }
 
 
                     } else {
