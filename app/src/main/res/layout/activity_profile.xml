@@ -11,8 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,56 +51,112 @@
             android:padding="20dp">
 
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Company Name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/companyNameTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_company"
+                    android:drawablePadding="10dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contact No">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/contactNoTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_telephone"
+                    android:drawablePadding="10dp"
+                    android:inputType="number"
+                    android:maxLength="8" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Company Email">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_email"
+                    android:drawablePadding="10dp"
+                    android:enabled="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Card Number">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/cardNumberTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_card_24px"
+                    android:drawablePadding="10dp"
+                    android:inputType="number"
+                    android:maxLength="16" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Company Name">
+                    android:layout_weight="1"
+                    android:hint="MM/YY">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/companyNameTv"
+                        android:id="@+id/expiryDateTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_date"
                         android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/ic_company"/>
+                        android:inputType="number"
+                        android:maxLength="4" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Contact No">
+                    android:layout_weight="1"
+                    android:hint="CCV">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/contactNoTv"
+                        android:id="@+id/ccvTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_cvv"
                         android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/ic_telephone"/>
+                        android:inputType="number"
+                        android:maxLength="3" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Company Email">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/emailTv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:drawablePadding="10dp"
-
-                        android:drawableLeft="@drawable/ic_email"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!--    Button -->
-                <Button
-                    android:id="@+id/updateBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/emailTv"
-                    android:layout_marginTop="10dp"
-                    android:text="UPDATE" />
             </LinearLayout>
+
+
+            <!--    Button -->
+            <Button
+                android:id="@+id/updateBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/emailTv"
+                android:layout_marginTop="10dp"
+                android:text="UPDATE" />
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

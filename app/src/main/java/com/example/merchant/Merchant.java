@@ -27,52 +27,52 @@ public class Merchant {
         return companyName;
     }
 
-    public String getContactNo() {
-        return contactNo;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getProfilePicture() {
-        return profilePicture;
-    }
-
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public String getExpiryDate() {
-        return expiryDate;
-    }
-
-    public String getCcv() {
-        return ccv;
-    }
-
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getContactNo() {
+        return contactNo;
     }
 
     public void setContactNo(String contactNo) {
         this.contactNo = contactNo;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
     }
 
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
     }
 
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
     public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public String getCcv() {
+        return ccv;
     }
 
     public void setCcv(String ccv) {

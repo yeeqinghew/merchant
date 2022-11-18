@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
+        android:padding="10dp"
         android:orientation="vertical">
 
         <ImageView
@@ -27,7 +28,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="227dp"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:orientation="vertical">
@@ -45,16 +46,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:text="Project Description"
-                    android:textSize="15sp" />
-
+                    android:textSize="12sp" />
                 <TextView
                     android:id="@+id/projectDetailsUrlTv"
-                    style="@style/TextAppearance.MaterialComponents.Overline"
-                    android:layout_width="wrap_content"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Project Url"
                     android:textColor="#0036B1"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -64,7 +65,7 @@
                 <ImageView
                     android:id="@+id/projectDetailsGoalIv"
                     android:layout_width="185dp"
-                    android:layout_height="185dp" />
+                    android:layout_height="120dp" />
             </LinearLayout>
         </LinearLayout>
 

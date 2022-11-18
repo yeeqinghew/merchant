@@ -1,10 +1,7 @@
 package com.example.merchant;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileActivity extends AppCompatActivity {
 
 
+    String uid, email, companyName, contactNo, cardNumber, expiryDate, ccv;
     // View Binding
     private ActivityProfileBinding binding;
     // action bar
@@ -32,8 +30,6 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference reference;
-
-    String uid, email, companyName, contactNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,12 +89,19 @@ public class ProfileActivity extends AppCompatActivity {
                     Merchant merchant = snapshot.getValue(Merchant.class);
                     companyName = merchant.companyName;
                     contactNo = merchant.contactNo;
+                    cardNumber = merchant.cardNumber;
+                    expiryDate = merchant.expiryDate;
+                    ccv = merchant.ccv;
                     if (merchant != null) {
                         binding.companyNameTv.setText(merchant.companyName);
                         binding.contactNoTv.setText(merchant.contactNo);
                         binding.emailTv.setText(merchant.email);
+                        binding.cardNumberTv.setText(merchant.cardNumber);
+                        binding.expiryDateTv.setText(merchant.expiryDate);
+                        binding.ccvTv.setText(merchant.ccv);
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
@@ -109,9 +112,16 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     private boolean isChanged() {
-        if (!companyName.equals(binding.companyNameTv.getText().toString()) || !contactNo.equals(binding.contactNoTv.getText().toString())) {
+        if (!companyName.equals(binding.companyNameTv.getText().toString()) ||
+                !contactNo.equals(binding.contactNoTv.getText().toString()) ||
+                !cardNumber.equals(binding.cardNumberTv.getText().toString()) ||
+                !expiryDate.equals(binding.expiryDateTv.getText().toString()) ||
+                !ccv.equals(binding.ccvTv.getText().toString())) {
             reference.child(uid).child("companyName").setValue(binding.companyNameTv.getText().toString());
             reference.child(uid).child("contactNo").setValue(binding.contactNoTv.getText().toString());
+            reference.child(uid).child("cardNumber").setValue(binding.cardNumberTv.getText().toString());
+            reference.child(uid).child("expiryDate").setValue(binding.expiryDateTv.getText().toString());
+            reference.child(uid).child("ccv").setValue(binding.ccvTv.getText().toString());
             return true;
         }
 
