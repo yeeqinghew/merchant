@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,10 +21,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -40,6 +43,7 @@ public class QuestDetailsActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private FirebaseUser user;
     private DatabaseReference reference;
+    private Query query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class QuestDetailsActivity extends AppCompatActivity {
 
         // get quest id passed from Quest Fragment
         questId = getIntent().getStringExtra("questId");
-        Log.d("questId", questId);
+        Log.d("customizedQuestId", questId);
 
         // action bar title
         actionBar = getSupportActionBar();
@@ -62,6 +66,41 @@ public class QuestDetailsActivity extends AppCompatActivity {
 
         // get current user
         user = firebaseAuth.getCurrentUser();
+
+        reference = FirebaseDatabase.getInstance().getReference();
+        query = reference.child("Quest").orderByChild("questId").equalTo(questId);
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Quest quest = snapshot.getValue(Quest.class);
+                Log.d("questtttt", String.valueOf(quest));
+                if (quest != null) {
+                    binding.questDetailsTitle.setText(quest.questTitle);
+                    binding.questDetailsDesc.setText(quest.description);
+                    binding.questPointsChip.setText(quest.points);
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         binding.clickToViewLinkTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,28 +173,6 @@ public class QuestDetailsActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-
-        reference = FirebaseDatabase.getInstance().getReference("Quest");
-        reference.child(questId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful() && task.getResult().exists()) {
-                    DataSnapshot dataSnapshot = task.getResult();
-
-                    String questTitle = String.valueOf(dataSnapshot.child("questTitle").getValue());
-                    String questDesc = String.valueOf(dataSnapshot.child("description").getValue());
-                    String questPoints = String.valueOf(dataSnapshot.child("points").getValue());
-                    String questWhen = String.valueOf(dataSnapshot.child("when").getValue());
-                    String questWho = String.valueOf(dataSnapshot.child("who").getValue());
-
-                    binding.questDetailsTitle.setText(questTitle);
-                    binding.questDetailsWhen.setText(questWhen);
-                    binding.questDetailsWho.setText(questWho);
-                    binding.questDetailsDesc.setText(questDesc);
-                    binding.questPointsChip.setText(questPoints);
-                }
             }
         });
     }
